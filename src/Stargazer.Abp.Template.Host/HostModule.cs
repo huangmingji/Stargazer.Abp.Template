@@ -1,8 +1,12 @@
 using System;
 using System.Linq;
+using System.Reflection;
 using Lemon.Common.Extend;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.DataProtection;
+using Microsoft.Extensions.Caching.StackExchangeRedis;
 using Microsoft.OpenApi.Models;
+using StackExchange.Redis;
 using Stargazer.Abp.Template.Application;
 using Stargazer.Abp.Template.EntityFrameworkCore;
 using Stargazer.Abp.Template.HttpApi;
@@ -62,6 +66,42 @@ namespace Stargazer.Abp.Template.Host
             });
         }
 
+        private void ConfigureCache(ServiceConfigurationContext context, IConfiguration configuration)
+        {
+            if (configuration["Redis:IsEnabled"].ToBool())
+            {
+                context.Services.AddStackExchangeRedisCache(options =>
+                {
+                    options.Configuration = configuration["Redis:Configuration"];
+                });
+                Configure<RedisCacheOptions>(options =>
+                {
+                    options.Configuration = configuration["Redis:Configuration"];
+                });
+            }
+            else
+            {
+                context.Services.AddMemoryCache();
+            }
+        }
+        
+        private void ConfigureDataProtection(ServiceConfigurationContext context, IConfiguration configuration)
+        {
+            // 添加数据保护服务，设置统一应用程序名称，
+            var dataProtectionBuilder = context.Services.AddDataProtection()
+                .SetApplicationName(Assembly.GetExecutingAssembly().FullName ?? "Stargazer.Abp.Template");
+            if (configuration["Redis:IsEnabled"].ToBool())
+            {
+                var redis = ConnectionMultiplexer.Connect(configuration["Redis:Configuration"]);//建立Redis 连接
+                // 指定使用Reids存储私钥
+                dataProtectionBuilder.PersistKeysToStackExchangeRedis(redis, "DataProtection-Keys");
+            }
+            else
+            {
+                dataProtectionBuilder.PersistKeysToFileSystem(new DirectoryInfo(System.AppDomain.CurrentDomain.BaseDirectory));
+            }
+        }
+
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
             var configuration = context.Services.GetConfiguration();
@@ -77,11 +117,13 @@ namespace Stargazer.Abp.Template.Host
                     op.SerializerSettings.Converters.Add(new Ext.LongJsonConverter());
                 });
 
-            Configure<AbpAspNetCoreMvcOptions>(options =>
-            {
-                options.ConventionalControllers.Create(typeof(ApplicationModule).Assembly);
-            });
+            // Configure<AbpAspNetCoreMvcOptions>(options =>
+            // {
+            //     options.ConventionalControllers.Create(typeof(ApplicationModule).Assembly);
+            // });
 
+            ConfigureCache(context, configuration);
+            ConfigureDataProtection(context, configuration);
             ConfigureAuthentication(context, configuration);
             ConfigureSwaggerServices(context);
             ConfigureCors(context, configuration);
