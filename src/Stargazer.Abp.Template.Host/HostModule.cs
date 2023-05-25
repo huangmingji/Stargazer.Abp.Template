@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.Caching.StackExchangeRedis;
 using Microsoft.OpenApi.Models;
 using StackExchange.Redis;
+using Stargazer.Abp.Authentication.JwtBearer.Application.Authentication;
 using Stargazer.Abp.Template.Application;
 using Stargazer.Abp.Template.EntityFrameworkCore;
 using Stargazer.Abp.Template.HttpApi;
@@ -41,7 +42,7 @@ namespace Stargazer.Abp.Template.Host
 
         private void ConfigureAuthentication(ServiceConfigurationContext context, IConfiguration configuration)
         {
-
+            context.Services.UseJwtBearerAuthentication(new string[] { });
         }
 
         private void ConfigureCors(ServiceConfigurationContext context, IConfiguration configuration)
@@ -157,11 +158,17 @@ namespace Stargazer.Abp.Template.Host
                 app.UseSwagger();
                 app.UseSwaggerUI(options =>
                 {
-                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "Lemon.Abp.Template Service API");
+                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "Stargazer.Abp.Template Service API");
                 });
 
             }
-
+            else
+            {
+                app.UseSpa(spa =>
+                {
+                    spa.Options.SourcePath = "wwwroot";
+                });
+            }
         }
     }
 }
