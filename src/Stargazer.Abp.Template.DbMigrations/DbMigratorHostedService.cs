@@ -26,10 +26,10 @@ namespace Stargazer.Abp.Template.DbMigrations
             {
                 application.Initialize();
 
-                // await application
-                //     .ServiceProvider
-                //     .GetRequiredService<PrometheusDbMigrationService>()
-                //     .MigrateAsync();
+                await application
+                    .ServiceProvider
+                    .GetRequiredService<DbMigrationService>()
+                    .MigrateAsync();
 
                 application.Shutdown();
 
