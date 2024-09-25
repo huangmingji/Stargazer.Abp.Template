@@ -45,6 +45,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stargazer.Abp.Template.Http
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stargazer.Abp.Template.TestBase", "test\Stargazer.Abp.Template.TestBase\Stargazer.Abp.Template.TestBase.csproj", "{5CF7C926-544B-49CD-ACF3-FD3AB6C16062}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stargazer.Abp.Template.Web", "src\Stargazer.Abp.Template.Web\Stargazer.Abp.Template.Web.csproj", "{2AFB1C26-266E-4FEC-8BF9-830D34B10407}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -130,6 +132,10 @@ Global
 		{5CF7C926-544B-49CD-ACF3-FD3AB6C16062}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5CF7C926-544B-49CD-ACF3-FD3AB6C16062}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5CF7C926-544B-49CD-ACF3-FD3AB6C16062}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AFB1C26-266E-4FEC-8BF9-830D34B10407}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AFB1C26-266E-4FEC-8BF9-830D34B10407}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AFB1C26-266E-4FEC-8BF9-830D34B10407}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AFB1C26-266E-4FEC-8BF9-830D34B10407}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{A49E2DAE-F19F-4434-B275-E9D91A323704} = {062D74BD-51BD-4567-A1B3-D79E2FDFB026}
@@ -151,5 +157,6 @@ Global
 		{908FDC95-A6DF-4AED-875D-463431DB96BC} = {5DC4FE21-1B21-42E6-8FBA-305CD5A1534D}
 		{27B14F6D-948B-41B7-974C-708B5FB48F08} = {5DC4FE21-1B21-42E6-8FBA-305CD5A1534D}
 		{5CF7C926-544B-49CD-ACF3-FD3AB6C16062} = {5DC4FE21-1B21-42E6-8FBA-305CD5A1534D}
+		{2AFB1C26-266E-4FEC-8BF9-830D34B10407} = {062D74BD-51BD-4567-A1B3-D79E2FDFB026}
 	EndGlobalSection
 EndGlobal

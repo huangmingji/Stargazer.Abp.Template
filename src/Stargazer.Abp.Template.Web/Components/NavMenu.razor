@@ -1,0 +1,11 @@
+@namespace Stargazer.Abp.Template.MudBlazorWeb.Components
+@inject NavigationManager NavigationManager
+
+<MudPaper Class="py-3" Elevation="0">
+    <MudNavMenu Class="mud-width-full pa-2" Rounded="false" Margin="Margin.None" Bordered="true" Color="Color.Info">
+        <MudNavLink Href="/" Match="NavLinkMatch.All" Icon="@Icons.Material.Outlined.Dashboard">Home</MudNavLink>
+        <MudNavLink Href="/admin/permissions" Match="NavLinkMatch.All" Icon="@Icons.Material.Outlined.Shield">权限管理</MudNavLink>
+        <MudNavLink Href="/admin/roles" Match="NavLinkMatch.All" Icon="@Icons.Material.Outlined.AdminPanelSettings">角色管理</MudNavLink>
+        <MudNavLink Href="/admin/users" Match="NavLinkMatch.All" Icon="@Icons.Material.Outlined.ManageAccounts">用户管理</MudNavLink>
+    </MudNavMenu>
+</MudPaper>
