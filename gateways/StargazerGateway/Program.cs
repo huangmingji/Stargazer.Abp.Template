@@ -3,13 +3,12 @@ using Microsoft.AspNetCore.RateLimiting;
 using StargazerGateway.Models;
 
 var builder = WebApplication.CreateBuilder(args);
-
 builder.Services.AddReverseProxy()
     .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
 
-// builder.Services.Configure<CustomRateLimitOptions>(builder.Configuration.GetSection(CustomRateLimitOptions.CustomRateLimit));
+builder.Services.Configure<CustomRateLimitOptions>(builder.Configuration.GetSection(CustomRateLimitOptions.CustomRateLimit));
 var rateLimitOptions = new CustomRateLimitOptions();
-// builder.Configuration.GetSection(CustomRateLimitOptions.CustomRateLimit).Bind(rateLimitOptions);
+builder.Configuration.GetSection(CustomRateLimitOptions.CustomRateLimit).Bind(rateLimitOptions);
 
 #region CORS
 string DefaultCorsPolicyName = "DefaultCors";
@@ -55,7 +54,7 @@ builder.Services.AddOutputCache(options =>
 
 #endregion
 
-#region
+#region rate limiter
 string DefaultRateLimiterPolicyName = "DefaultRateLimiter";
 builder.Services.AddRateLimiter(options =>
 {
@@ -76,10 +75,18 @@ builder.Services.AddRateLimiter(options =>
 });
 #endregion
 
+#region timeouts
+builder.Services.AddRequestTimeouts(options =>
+{
+    options.AddPolicy("CustomPolicy", TimeSpan.FromSeconds(30));
+});
+#endregion
+
 var app = builder.Build();
 app.UseCors();
 app.UseOutputCache();
 app.UseRateLimiter();
+app.UseRequestTimeouts();
 app.MapReverseProxy();
 
 app.Run();

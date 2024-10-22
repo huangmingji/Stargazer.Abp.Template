@@ -1,0 +1,22 @@
+services:
+  stargazer-ai:
+    image: cccr.ccs.tencentyun.com/stargazer/stargazer-abp-template:${VERSION}
+    build:
+      context: .
+      dockerfile: Dockerfile
+      platform: ${PLATFORM}
+    env_file:
+      - .env
+    container_name: stargazer-abp-template
+    restart: always
+    environment:
+      - Logging__LogLevel__Default=Error
+      - Logging__LogLevel__Microsoft=Error
+      - ConnectionStrings__Default=server=192.168.0.10;port=5432;Database=chat;uid=postgres;pwd=123456;
+      # - Redis__Configuration=192.168.0.100
+      # - RabbitMQ__Connections__Default__HostName=192.168.0.100
+    ports:
+      - "5136:5136"
+    volumes:
+      - ./volume/logs:/app/Logs
+      - ./volume/files:/app/files
