@@ -1,0 +1,19 @@
+services:
+  gateway:
+    image: ccr.ccs.tencentyun.com/stargazer/stargazer-gateway:${VERSION}
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    container_name: gateway
+    restart: always
+    environment:
+      - Logging__LogLevel__Default=Error
+      - Logging__LogLevel__Microsoft=Error
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./volume/logs:/app/Logs
+      - ./volume/files:/app/files

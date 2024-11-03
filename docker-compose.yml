@@ -1,6 +1,6 @@
 services:
   stargazer-ai:
-    image: cccr.ccs.tencentyun.com/stargazer/stargazer-abp-template:${VERSION}
+    image: ccr.ccs.tencentyun.com/stargazer/stargazer-abp-template:${VERSION}
     build:
       context: .
       dockerfile: Dockerfile

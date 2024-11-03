@@ -83,6 +83,7 @@ builder.Services.AddRequestTimeouts(options =>
 #endregion
 
 var app = builder.Build();
+app.UseHsts();
 app.UseCors();
 app.UseOutputCache();
 app.UseRateLimiter();
