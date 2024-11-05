@@ -1,0 +1,14 @@
+[Unit]
+Description=Gateway Service
+After=network-online.target
+
+[Service]
+ExecStart=dotnet Stargazer.Abp.Template.Web.dll
+User=root
+Group=root
+Restart=always
+RestartSec=3
+Environment="PATH=$PATH"
+
+[Install]
+WantedBy=default.target

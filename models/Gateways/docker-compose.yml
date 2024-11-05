@@ -16,4 +16,4 @@ services:
       - "443:443"
     volumes:
       - ./volume/logs:/app/Logs
-      - ./volume/files:/app/files
+      - ./volume/certs:/app/certs
