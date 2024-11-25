@@ -59,11 +59,10 @@ try
     {
         options.AddPolicy(defaultCorsPolicyName, policy =>
         {
-            string[] origins = new[] {"*"};
             string corsOrigins = configuration["App:CorsOrigins"] ?? "";
             if (!string.IsNullOrWhiteSpace(corsOrigins))
             {
-                origins = corsOrigins.Split(",", StringSplitOptions.RemoveEmptyEntries)
+                string[] origins = corsOrigins.Split(",", StringSplitOptions.RemoveEmptyEntries)
                     .Select(x => x.Trim())
                     .Select(x =>
                     {
