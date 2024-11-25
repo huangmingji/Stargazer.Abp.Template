@@ -17,3 +17,4 @@ services:
     volumes:
       - ./volume/logs:/app/Logs
       - ./volume/certs:/app/certs
+      - ./volume/appsettings.Production.json:/app/appsettings.Production.json
