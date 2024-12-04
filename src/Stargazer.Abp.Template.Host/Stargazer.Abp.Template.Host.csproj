@@ -10,6 +10,7 @@
     <ProjectReference Include="..\Stargazer.Abp.Template.EntityFrameworkCore\Stargazer.Abp.Template.EntityFrameworkCore.csproj" />
     <ProjectReference Include="..\Stargazer.Abp.Template.Application\Stargazer.Abp.Template.Application.csproj" />
     <ProjectReference Include="..\Stargazer.Abp.Template.HttpApi\Stargazer.Abp.Template.HttpApi.csproj" />
+    <ProjectReference Include="..\..\modules\Aspire\Stargazer\Stargazer.ServiceDefaults\Stargazer.ServiceDefaults.csproj" />
   </ItemGroup>
 
   <ItemGroup>
