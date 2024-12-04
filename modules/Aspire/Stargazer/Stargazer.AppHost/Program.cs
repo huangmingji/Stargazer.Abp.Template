@@ -37,9 +37,9 @@ var mongo = builder.AddMongoDB("mongo", 27017, mongoUser, mongoPwd)
 var mongodb = mongo.AddDatabase("mongodb");
 
 IResourceBuilder<ProjectResource> apiService = builder.AddProject<Projects.Stargazer_Abp_Template_Host>("api-service");
-IResourceBuilder<ProjectResource> webService = builder.AddProject<Projects.Stargazer_Abp_Template_Web>("web-service");
 
-webService.WithExternalHttpEndpoints()
+builder.AddProject<Projects.Stargazer_Abp_Template_Web>("frontend")
+    .WithExternalHttpEndpoints()
     .WithReference(redis)
     .WithReference(postgresql)
     .WithReference(mongodb)
