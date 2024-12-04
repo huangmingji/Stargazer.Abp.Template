@@ -1,5 +1,3 @@
-using System;
-using System.Linq;
 using System.Reflection;
 using Lemon.Common.Extend;
 using Microsoft.AspNetCore.Cors;
@@ -160,7 +158,6 @@ namespace Stargazer.Abp.Template.Host
                 {
                     options.SwaggerEndpoint("/swagger/v1/swagger.json", "Stargazer.Abp.Template Service API");
                 });
-
             }
             else
             {
