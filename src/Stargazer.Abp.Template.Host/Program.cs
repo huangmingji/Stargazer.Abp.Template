@@ -1,3 +1,4 @@
+using Scalar.AspNetCore;
 using Serilog;
 using Stargazer.Abp.Template.Host;
 
@@ -22,8 +23,14 @@ try
     // Add services to the container.
     builder.Services.ReplaceConfiguration(builder.Configuration);
     builder.Services.AddApplication<HostModule>();
+    builder.Services.AddOpenApi();
     var app = builder.Build();
     app.InitializeApplication();
+    if(!app.Environment.IsProduction())
+    {
+        app.MapOpenApi();
+        app.MapScalarApiReference();
+    }
     app.Run();
 }
 catch (Exception ex)
