@@ -6,12 +6,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Volo.Abp.AutoMapper" Version="9.0.2" />
-    <PackageReference Include="Volo.Abp.Caching" Version="9.0.2" />
-    <PackageReference Include="Volo.Abp.Ddd.Application" Version="9.0.2" />
-    <PackageReference Include="Stargazer.Abp.Account.Application" Version="9.0.2.2-alpha" />
-    <PackageReference Include="Stargazer.Abp.ObjectStorage.Application" Version="8.3.1-alpha" />
-    <PackageReference Include="Stargazer.Abp.Authentication.JwtBearer.Application" Version="8.3.1.2-alpha" />
+    <PackageReference Include="Volo.Abp.AutoMapper" Version="9.1.1" />
+    <PackageReference Include="Volo.Abp.Caching" Version="9.1.1" />
+    <PackageReference Include="Volo.Abp.Ddd.Application" Version="9.1.1" />
+    <PackageReference Include="Stargazer.Abp.Account.Application" Version="9.1.0" />
+    <PackageReference Include="Stargazer.Abp.ObjectStorage.Application" Version="9.1.0" />
+    <PackageReference Include="Stargazer.Abp.Authentication.JwtBearer.Application" Version="9.1.0" />
   </ItemGroup>
 
   <PropertyGroup>

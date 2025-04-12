@@ -5,11 +5,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Volo.Abp.AspNetCore.Mvc" Version="9.0.2" />
-    <PackageReference Include="Stargazer.Abp.Authentication.JwtBearer.HttpApi" Version="8.3.1.2-alpha" />
-    <PackageReference Include="Stargazer.Abp.Captcha.HttpApi" Version="7.4.2.1-alpha" />
-    <PackageReference Include="Stargazer.Abp.Account.HttpApi" Version="9.0.2.2-alpha" />
-    <PackageReference Include="Stargazer.Abp.ObjectStorage.HttpApi" Version="8.3.1-alpha" />
+    <PackageReference Include="Volo.Abp.AspNetCore.Mvc" Version="9.1.1" />
+    <PackageReference Include="Stargazer.Abp.Authentication.JwtBearer.HttpApi" Version="9.1.0" />
+    <PackageReference Include="Stargazer.Abp.Captcha.HttpApi" Version="9.0.2.1-alpha" />
+    <PackageReference Include="Stargazer.Abp.Account.HttpApi" Version="9.1.0" />
+    <PackageReference Include="Stargazer.Abp.ObjectStorage.HttpApi" Version="9.1.0" />
   </ItemGroup>
 
   <ItemGroup>
