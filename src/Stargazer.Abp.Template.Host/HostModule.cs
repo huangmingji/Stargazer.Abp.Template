@@ -3,6 +3,7 @@ using Lemon.Common.Extend;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.Caching.StackExchangeRedis;
+using Microsoft.OpenApi.Models;
 using StackExchange.Redis;
 using Stargazer.Abp.Authentication.JwtBearer.Application.Authentication;
 using Stargazer.Abp.Template.Application;
@@ -13,6 +14,7 @@ using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AspNetCore.Serilog;
 using Volo.Abp.Autofac;
 using Volo.Abp.Modularity;
+using Volo.Abp.Swashbuckle;
 
 namespace Stargazer.Abp.Template.Host
 {
@@ -22,7 +24,8 @@ namespace Stargazer.Abp.Template.Host
     typeof(HttpApiModule),
     typeof(AbpAspNetCoreMvcModule),
     typeof(AbpAutofacModule),
-    typeof(AbpAspNetCoreSerilogModule)
+    typeof(AbpAspNetCoreSerilogModule),
+    typeof(AbpSwashbuckleModule)
     )]
     public class HostModule : AbpModule
     {
@@ -106,15 +109,52 @@ namespace Stargazer.Abp.Template.Host
                     op.SerializerSettings.Converters.Add(new Ext.LongJsonConverter());
                 });
 
-            // Configure<AbpAspNetCoreMvcOptions>(options =>
-            // {
-            //     options.ConventionalControllers.Create(typeof(ApplicationModule).Assembly);
-            // });
+            //swagger
+            context.Services.AddAbpSwaggerGen(options =>
+                {
+                    options.SwaggerDoc("v1", new OpenApiInfo {Title = "Stargazer API", Version = "v1", Description = "Stargazer API"});
+                    options.DocInclusionPredicate((docName, description) => true);
+                    options.CustomSchemaIds(type => type.FullName);
+                    // 添加一个安全方案定义
+                    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                    {
+                        Name = "Authorization",
+                        Type = SecuritySchemeType.ApiKey,
+                        Scheme = "Bearer",
+                        BearerFormat = "JWT",
+                        In = ParameterLocation.Header,
+                        Description = "请输入JWT令牌"
+                    });
+                    // 将安全要求应用到所有的API上
+                    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+                    {
+                        {
+                            new OpenApiSecurityScheme
+                            {
+                                Reference = new OpenApiReference
+                                {
+                                    Type = ReferenceType.SecurityScheme,
+                                    Id = "Bearer"
+                                }
+                            },
+                            new List<string>()
+                        }
+                    });
+                }
+            );
 
             ConfigureCache(context, configuration);
             ConfigureDataProtection(context, configuration);
             ConfigureAuthentication(context, configuration);
             ConfigureCors(context, configuration);
+        }
+
+        public override void PreConfigureServices(ServiceConfigurationContext context)
+        {
+            PreConfigure<AbpAspNetCoreMvcOptions>(options =>
+            {
+                options.ConventionalControllers.Create(typeof(ApplicationModule).Assembly);
+            });
         }
 
         public override void OnApplicationInitialization(
@@ -131,6 +171,13 @@ namespace Stargazer.Abp.Template.Host
             {
                 app.UseExceptionHandler("/Error");
             }
+
+            app.UseSwagger();
+
+            app.UseAbpSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "Stargazer API");
+            });
 
             app.UseCors(DefaultCorsPolicyName);
 
