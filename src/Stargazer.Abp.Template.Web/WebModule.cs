@@ -1,11 +1,7 @@
-using System;
-using System.Linq;
 using System.Reflection;
-using Lemon.Common.Extend;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.Caching.StackExchangeRedis;
-using Microsoft.OpenApi.Models;
 using StackExchange.Redis;
 using Stargazer.Abp.Template.Application;
 using Stargazer.Abp.Template.EntityFrameworkCore;
@@ -17,6 +13,7 @@ using Volo.Abp.Autofac;
 using Volo.Abp.Modularity;
 using MudBlazor;
 using MudBlazor.Services;
+using Stargazer.Common.Extend;
 
 namespace Stargazer.Abp.Template.Web
 {
@@ -31,16 +28,7 @@ namespace Stargazer.Abp.Template.Web
     public class WebModule : AbpModule
     {
         private const string DefaultCorsPolicyName = "Default";
-        private static void ConfigureSwaggerServices(ServiceConfigurationContext context)
-        {
-            context.Services.AddSwaggerGen(
-                options =>
-                {
-                    options.SwaggerDoc("v1", new OpenApiInfo { Title = "Lemon.Abp.Template Service API", Version = "v1" });
-                    options.DocInclusionPredicate((docName, description) => true);
-                });
-        }
-
+        
         private void ConfigureAuthentication(ServiceConfigurationContext context, IConfiguration configuration)
         {
             // context.Services.UseJwtBearerAuthentication(new string[] { });
@@ -141,7 +129,6 @@ namespace Stargazer.Abp.Template.Web
             ConfigureCache(context, configuration);
             ConfigureDataProtection(context, configuration);
             ConfigureAuthentication(context, configuration);
-            ConfigureSwaggerServices(context);
             ConfigureCors(context, configuration);
         }
 
@@ -167,23 +154,7 @@ namespace Stargazer.Abp.Template.Web
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseConfiguredEndpoints();
-
-            if (!env.IsProduction())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI(options =>
-                {
-                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "Stargazer.Abp.ArtificialIntelligence Service API");
-                });
-
-            }
-            else
-            {
-                app.UseSpa(spa =>
-                {
-                    spa.Options.SourcePath = "wwwroot";
-                });
-            }
+            app.UseSpa(spa => { spa.Options.SourcePath = "wwwroot"; });
         }
     }
 }

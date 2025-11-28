@@ -1,3 +1,7 @@
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.OpenApi;
+using Microsoft.OpenApi;
 using Scalar.AspNetCore;
 using Serilog;
 using Stargazer.Abp.Template.Host;
@@ -23,13 +27,31 @@ try
     // Add services to the container.
     builder.Services.ReplaceConfiguration(builder.Configuration);
     builder.Services.AddApplication<HostModule>();
-    builder.Services.AddOpenApi();
+    builder.Services.AddOpenApi(options =>
+    {
+        options.ShouldInclude = (_) => true;
+        options.AddDocumentTransformer((document, context, cancellationToken) =>
+        {
+            document.Info = new()
+            {
+                Title = "Stargazer API",
+                Version = "v1",
+                Description = "Stargazer API"
+            };
+            return Task.CompletedTask;
+        });
+        options.AddDocumentTransformer<BearerSecuritySchemeTransformer>();
+    });
     var app = builder.Build();
     app.InitializeApplication();
     if(!app.Environment.IsProduction())
     {
         app.MapOpenApi();
-        app.MapScalarApiReference();
+        app.MapScalarApiReference(options =>
+            options.WithTitle("Stargazer EShop API")
+                .AddPreferredSecuritySchemes(JwtBearerDefaults.AuthenticationScheme)
+                .AddHttpAuthentication(JwtBearerDefaults.AuthenticationScheme, auth => { auth.Token = ""; })
+        );
     }
     app.Run();
 }
@@ -40,4 +62,27 @@ catch (Exception ex)
 finally
 {
     Log.CloseAndFlush();
+}
+
+internal sealed class BearerSecuritySchemeTransformer(IAuthenticationSchemeProvider authenticationSchemeProvider) : IOpenApiDocumentTransformer
+{
+    public async Task TransformAsync(OpenApiDocument document, OpenApiDocumentTransformerContext context, CancellationToken cancellationToken)
+    {
+        var authenticationSchemes = await authenticationSchemeProvider.GetAllSchemesAsync();
+        if (authenticationSchemes.Any(authScheme => authScheme.Name == "Bearer"))
+        {
+            var requirements = new Dictionary<string, IOpenApiSecurityScheme>
+            {
+                ["Bearer"] = new OpenApiSecurityScheme
+                {
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "bearer", // "bearer" refers to the header name here
+                    In = ParameterLocation.Header,
+                    BearerFormat = "Json Web Token"
+                }
+            };
+            document.Components ??= new OpenApiComponents();
+            document.Components.SecuritySchemes = requirements;
+        }
+    }
 }

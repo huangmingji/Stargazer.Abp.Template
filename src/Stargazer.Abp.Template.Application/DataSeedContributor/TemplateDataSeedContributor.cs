@@ -1,5 +1,4 @@
-using Stargazer.Abp.Account.Domain.Repository;
-using Stargazer.Abp.Account.Domain.Role;
+using Stargazer.Abp.Users.Domain.Roles;
 using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Domain.Repositories;

@@ -1,13 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Stargazer.Abp.Account.EntityFrameworkCore.DbMigrations;
 using Volo.Abp.EntityFrameworkCore;
 using Volo.Abp.Modularity;
 
 namespace Stargazer.Abp.Template.EntityFrameworkCore.DbMigrations
 {
     [DependsOn(
-        typeof(StargazerAbpAccountEntityFrameworkCoreDbMigrationsModule),
+        typeof(Users.EntityFrameworkCore.DbMigrations.EntityFrameworkCoreDbMigrationsModule),
         typeof(EntityFrameworkCoreModule))]
     public class EntityFrameworkCoreDbMigrationsModule : AbpModule
     {

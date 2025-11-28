@@ -8,7 +8,7 @@ using Volo.Abp.Modularity;
 namespace Stargazer.Abp.Template.Application
 {
     [DependsOn(
-        typeof(StargazerAbpAccountApplicationContractsModule),
+        typeof(Users.Application.Contracts.ApplicationContractsModule),
         typeof(StargazerAbpAuthenticationJwtBearerApplicationContractsModule),
         typeof(StargazerAbpObjectStorageApplicationContractsModule),
         typeof(AbpFluentValidationModule),

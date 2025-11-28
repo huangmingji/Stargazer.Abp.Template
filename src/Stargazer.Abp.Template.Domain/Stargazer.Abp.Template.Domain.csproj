@@ -5,13 +5,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Lemon.Common" Version="8.0.1" />
-    <PackageReference Include="Volo.Abp.Ddd.Domain" Version="9.1.1" />
-    <PackageReference Include="Stargazer.Abp.Account.Domain" Version="9.1.0" />
+    <PackageReference Include="Stargazer.Common" Version="9.0.5" />
+    <PackageReference Include="Stargazer.Abp.Users.Domain" Version="10.0.0" />
+    <PackageReference Include="Volo.Abp.Ddd.Domain" Version="10.0.0" />
   </ItemGroup>
 
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>

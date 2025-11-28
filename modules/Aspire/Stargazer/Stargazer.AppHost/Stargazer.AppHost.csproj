@@ -4,7 +4,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <IsAspireHost>true</IsAspireHost>
@@ -12,11 +12,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Aspire.Hosting.AppHost" Version="9.2.0" />
-    <PackageReference Include="Aspire.Hosting.MongoDB" Version="9.2.0" />
-    <PackageReference Include="Aspire.Hosting.NodeJs" Version="9.2.0" />
-    <PackageReference Include="Aspire.Hosting.PostgreSQL" Version="9.2.0" />
-    <PackageReference Include="Aspire.Hosting.Redis" Version="9.2.0" />
+    <PackageReference Include="Aspire.Hosting.AppHost" Version="13.0.1" />
+    <PackageReference Include="Aspire.Hosting.MongoDB" Version="13.0.1" />
+    <PackageReference Include="Aspire.Hosting.NodeJs" Version="9.5.2" />
+    <PackageReference Include="Aspire.Hosting.PostgreSQL" Version="13.0.1" />
+    <PackageReference Include="Aspire.Hosting.MySql" Version="13.0.1" />
+    <PackageReference Include="Aspire.Hosting.SqlServer" Version="13.0.1" />
+    <PackageReference Include="Aspire.Hosting.Oracle" Version="13.0.1" />
+    <PackageReference Include="Aspire.Hosting.Redis" Version="13.0.1" />
+    <PackageReference Include="Aspire.Hosting.RabbitMQ" Version="13.0.1" />
+    <PackageReference Include="Aspire.Hosting.Keycloak" Version="13.0.1-preview.1.25575.3" />
   </ItemGroup>
 
   <ItemGroup>
