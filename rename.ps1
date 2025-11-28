@@ -7,7 +7,7 @@ param(
     [Parameter(Mandatory=$false)]
     [string]$OldString = "Stargazer.Abp.Template",
 
-    [string[]]$Exclude = @(".git","bin","obj","node_modules"),
+    [string[]]$Exclude = @(".git","bin","obj","node_modules", "rename.ps1"),
 
     [ValidateSet("utf8","utf8bom","unicode","ascii","default")]
     [string]$Encoding = "utf8"
@@ -61,7 +61,34 @@ Get-ChildItem -Recurse -File | Where-Object { -not (IsExcludedPath $_.FullName) 
     }
 }
 
-# 2) 再按从深到浅重命名目录，避免父目录先被改名影响遍历
+# 2) 重命名文件名（从深到浅，避免冲突）
+Get-ChildItem -Recurse -File | Sort-Object FullName -Descending | ForEach-Object {
+    if (IsExcludedPath $_.FullName) { return }
+    $oldName = $_.Name
+    if ($oldName -match $escapedOld) {
+        $newName = $oldName -replace $escapedOld, $NewString
+        $parent = Split-Path -Parent $_.FullName
+        $target = Join-Path $parent $newName
+
+        if (Test-Path $target) {
+            Write-Warning "目标已存在，跳过重命名文件：$($_.FullName) -> $target"
+            return
+        }
+
+        if ($PSCmdlet.ShouldProcess("文件: $($_.FullName)", "重命名为 $target")) {
+            try {
+                Rename-Item -LiteralPath $_.FullName -NewName $newName -Force
+                Write-Host "已重命名文件：$($_.FullName) -> $target"
+            } catch {
+                Write-Warning "重命名文件失败：$($_.FullName) -> $newName : $($_.Exception.Message)"
+            }
+        } else {
+            Write-Host "（WhatIf）将重命名文件：$($_.FullName) -> $target"
+        }
+    }
+}
+
+# 3) 再按从深到浅重命名目录，避免父目录先被改名影响遍历
 Get-ChildItem -Recurse -Directory | Sort-Object FullName -Descending | ForEach-Object {
     if (IsExcludedPath $_.FullName) { return }
     $oldName = $_.Name
