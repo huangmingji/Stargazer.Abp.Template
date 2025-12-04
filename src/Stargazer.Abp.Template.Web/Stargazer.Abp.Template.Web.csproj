@@ -7,18 +7,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\aspire\Stargazer.ServiceDefaults\Stargazer.ServiceDefaults.csproj" />
     <ProjectReference Include="..\Stargazer.Abp.Template.EntityFrameworkCore\Stargazer.Abp.Template.EntityFrameworkCore.csproj" />
     <ProjectReference Include="..\Stargazer.Abp.Template.Application\Stargazer.Abp.Template.Application.csproj" />
     <ProjectReference Include="..\Stargazer.Abp.Template.HttpApi\Stargazer.Abp.Template.HttpApi.csproj" />
-    <ProjectReference Include="..\..\modules\Aspire\Stargazer\Stargazer.ServiceDefaults\Stargazer.ServiceDefaults.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MudBlazor" Version="8.15.0" />
     <PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="10.0.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
+    <PackageReference Include="Serilog.Settings.AppSettings" Version="3.0.0" />
     <PackageReference Include="Serilog.Settings.Configuration" Version="10.0.0" />
     <PackageReference Include="Serilog.Sinks.Async" Version="2.1.0" />
     <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
+    <PackageReference Include="Serilog.Sinks.Seq" Version="9.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="10.0.1" />
     <PackageReference Include="Volo.Abp.AspNetCore.Mvc" Version="10.0.0" />
     <PackageReference Include="Volo.Abp.AspNetCore.Serilog" Version="10.0.0" />

@@ -1,14 +1,19 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Serilog;
+using Serilog.Events;
 using Stargazer.Abp.Template.Web;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.AddServiceDefaults();
 builder.Host.UseAutofac().UseSerilog();
-
 Log.Logger = new LoggerConfiguration()
+    // .ReadFrom.AppSettings()
+    // .CreateLogger();
+    //
     .MinimumLevel.Information()
     .Enrich.FromLogContext()
+    .WriteTo.Seq("http://localhost:5341", LogEventLevel.Information, bufferBaseFilename:"web")
     .WriteTo.Async(c =>
         c.File("Logs/log.txt",
             rollingInterval: RollingInterval.Day,
@@ -34,6 +39,7 @@ try
     app.MapBlazorHub();
     app.MapFallbackToPage("/_Host");
 
+    app.MapDefaultEndpoints();
     app.Run();
 }
 catch (Exception ex)

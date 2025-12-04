@@ -39,3 +39,4 @@ logs/
 files/
 nupkg/
 certs/
+volumes/

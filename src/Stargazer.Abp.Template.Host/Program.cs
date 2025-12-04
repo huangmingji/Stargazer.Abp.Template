@@ -4,14 +4,25 @@ using Microsoft.AspNetCore.OpenApi;
 using Microsoft.OpenApi;
 using Scalar.AspNetCore;
 using Serilog;
+using Serilog.Events;
 using Stargazer.Abp.Template.Host;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Add service defaults & Aspire client integrations.
+builder.AddServiceDefaults();
+
+// Add services to the container.
+builder.Services.AddProblemDetails();
+
 builder.Host.UseAutofac().UseSerilog();
 
 Log.Logger = new LoggerConfiguration()
+        // .ReadFrom.AppSettings()
+        // .CreateLogger();
     .MinimumLevel.Debug()
     .Enrich.FromLogContext()
+    .WriteTo.Seq("http://localhost:5341", LogEventLevel.Information, bufferBaseFilename: "api")
     .WriteTo.Async(c =>
         c.File("Logs/log.txt",
             rollingInterval: RollingInterval.Day,
@@ -53,6 +64,7 @@ try
                 .AddHttpAuthentication(JwtBearerDefaults.AuthenticationScheme, auth => { auth.Token = ""; })
         );
     }
+    app.MapDefaultEndpoints();
     app.Run();
 }
 catch (Exception ex)

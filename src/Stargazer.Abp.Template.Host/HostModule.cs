@@ -12,7 +12,6 @@ using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AspNetCore.Serilog;
 using Volo.Abp.Autofac;
 using Volo.Abp.Modularity;
-using Volo.Abp.Swashbuckle;
 
 namespace Stargazer.Abp.Template.Host
 {
@@ -22,8 +21,7 @@ namespace Stargazer.Abp.Template.Host
     typeof(HttpApiModule),
     typeof(AbpAspNetCoreMvcModule),
     typeof(AbpAutofacModule),
-    typeof(AbpAspNetCoreSerilogModule),
-    typeof(AbpSwashbuckleModule)
+    typeof(AbpAspNetCoreSerilogModule)
     )]
     public class HostModule : AbpModule
     {
