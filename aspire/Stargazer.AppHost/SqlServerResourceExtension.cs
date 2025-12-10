@@ -7,7 +7,7 @@ public static class SqlServerResourceExtension
     public static IResourceBuilder<SqlServerDatabaseResource> CreateSqlServerDatabaseResource(
         this IDistributedApplicationBuilder builder)
     {
-        var password = builder.AddParameter("password", "password");
+        var password = builder.AddParameter("password", "123456");
         SqlServer = builder.AddSqlServer("sqlserver", password).WithDataBindMount("../../volumes/sqlserver/data");
         return SqlServer.AddDatabase("sqlserver-database");
     }

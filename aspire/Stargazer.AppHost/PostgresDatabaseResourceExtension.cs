@@ -24,6 +24,7 @@ public static class PostgresDatabaseResourceExtension
             .WithContainerName("postgres")
             .WithImageRegistry("ccr.ccs.tencentyun.com")
             .WithImage("stargazer/postgres",tag)
+            .WithEnvironment("POSTGRES_DB", "keycloak")
             .WithPgAdmin(configureContainer =>
             {
                 configureContainer.WithHostPort(8080);

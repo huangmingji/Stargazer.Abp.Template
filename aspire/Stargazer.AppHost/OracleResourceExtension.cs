@@ -8,7 +8,7 @@ public static class OracleResourceExtension
     public static IResourceBuilder<OracleDatabaseResource> CreateOracleDatabaseResource(
         this IDistributedApplicationBuilder builder)
     {
-        var password = builder.AddParameter("password", "password");
+        var password = builder.AddParameter("password", "123456");
         Oracle = builder.AddOracle("oracle", password).WithContainerName("oracle").WithDataBindMount("../../volumes/oracle/data");
         return Oracle.AddDatabase("oracle-database");
     }

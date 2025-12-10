@@ -6,7 +6,6 @@ var redis = builder.CreateRedisResource();
 var postgresql = builder.CreatePostgresDatabaseResource();
 var mongodb = builder.CreateMongoDBDatabaseResource();
 var req = builder.CreateSeqResource();
-var keycloak = builder.CreateKeycloakResource();
 
 var apiService = builder.AddProject<Projects.Stargazer_Abp_Template_Host>("apiservice")
     .WithExternalHttpEndpoints()
@@ -21,17 +20,13 @@ var webfrontend = builder.AddProject<Projects.Stargazer_Abp_Template_Web>("webfr
     .WaitFor(mongodb)
     .WithReference(postgresql)
     .WaitFor(postgresql)
-    .WithReference(keycloak)
-    .WaitFor(keycloak)
     .WithReference(req)
     .WaitFor(req)
     .WithReference(apiService)
     .WaitFor(apiService);
 
-builder.AddProject<Projects.StargazerGateway>("gateway")
-    .WithExternalHttpEndpoints()
-    .WithHttpHealthCheck("/health")
-    .WithReference(webfrontend)
-    .WaitFor(webfrontend);
+builder.CreateKeycloakResource()
+        .WithReference(webfrontend)
+        .WaitFor(webfrontend);
 
 builder.Build().Run();

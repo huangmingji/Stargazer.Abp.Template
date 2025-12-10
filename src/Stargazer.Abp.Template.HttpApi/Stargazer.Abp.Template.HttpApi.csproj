@@ -5,7 +5,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Volo.Abp.AspNetCore.Mvc" Version="10.0.0" />
+    <PackageReference Include="Volo.Abp.AspNetCore.Mvc" Version="10.0.1" />
     <PackageReference Include="Stargazer.Abp.Captcha.HttpApi" Version="10.0.0" />
     <PackageReference Include="Stargazer.Abp.Users.HttpApi" Version="10.0.0" />
     <PackageReference Include="Stargazer.Abp.ObjectStorage.HttpApi" Version="10.0.0" />

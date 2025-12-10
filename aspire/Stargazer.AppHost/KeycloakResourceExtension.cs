@@ -16,7 +16,7 @@ public static class KeycloakResourceExtension
         }
         // var username = builder.AddParameter("username", "admin");
         // var password = builder.AddParameter("password", "admin");
-        return builder.AddKeycloak("keycloak", 8080)
+        return builder.AddKeycloak("keycloak", 8081)
             .WithContainerName("keycloak")
             .WithImageRegistry("ccr.ccs.tencentyun.com")
             .WithImage("stargazer/keycloak",tag)
@@ -24,9 +24,9 @@ public static class KeycloakResourceExtension
             .WithEnvironment("KC_BOOTSTRAP_ADMIN_PASSWORD", "admin")
             .WithEnvironment("KC_DB", "postgres")
             .WithEnvironment("KC_DB_URL_HOST", "postgres")
-            .WithEnvironment("KC_DB_URL_DATABASE", "postgres")
-            .WithEnvironment("KC_DB_USERNAME", "keycloak")
-            .WithEnvironment("KC_DB_PASSWORD", "password")
+            .WithEnvironment("KC_DB_URL_DATABASE", "keycloak")
+            .WithEnvironment("KC_DB_USERNAME", "postgres")
+            .WithEnvironment("KC_DB_PASSWORD", "123456")
             .WithDataBindMount("../../volumes/keycloak/data");
     }
 }

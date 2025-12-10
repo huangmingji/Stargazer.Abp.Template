@@ -7,10 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Volo.Abp.Ddd.Application.Contracts" Version="10.0.0" />
-    <PackageReference Include="Volo.Abp.FluentValidation" Version="10.0.0" />
+    <PackageReference Include="Volo.Abp.Ddd.Application.Contracts" Version="10.0.1" />
+    <PackageReference Include="Volo.Abp.FluentValidation" Version="10.0.1" />
     <PackageReference Include="Stargazer.Abp.Users.Application.Contracts" Version="10.0.0" />
-    <PackageReference Include="Stargazer.Abp.ObjectStorage.Application.Contracts" Version="9.1.1.1" />
+    <PackageReference Include="Stargazer.Abp.ObjectStorage.Application.Contracts" Version="10.0.0" />
     <PackageReference Include="Stargazer.Abp.Authentication.JwtBearer.Application.Contracts" Version="9.1.1" />
   </ItemGroup>
 

@@ -7,7 +7,7 @@ public static class MySqlResourceExtension
     public static IResourceBuilder<MySqlDatabaseResource> CreateMySqlDatabaseResource(
         this IDistributedApplicationBuilder builder)
     {
-        var password = builder.AddParameter("password", "password");
+        var password = builder.AddParameter("password", "123456");
         MySql = builder.AddMySql("MySql", password)
             .WithContainerName("mysql")
             .WithDataBindMount("../../volumes/mysql/data");

@@ -59,7 +59,7 @@ try
     {
         app.MapOpenApi();
         app.MapScalarApiReference(options =>
-            options.WithTitle("Stargazer EShop API")
+            options.WithTitle("Stargazer API")
                 .AddPreferredSecuritySchemes(JwtBearerDefaults.AuthenticationScheme)
                 .AddHttpAuthentication(JwtBearerDefaults.AuthenticationScheme, auth => { auth.Token = ""; })
         );
