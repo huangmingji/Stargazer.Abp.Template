@@ -7,21 +7,15 @@ using Stargazer.Abp.Template.Web;
 var builder = WebApplication.CreateBuilder(args);
 builder.AddServiceDefaults();
 builder.Host.UseAutofac().UseSerilog();
+
+var configuration = new ConfigurationBuilder()
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.json")
+    .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production"}.json", true)
+    .Build();
+
 Log.Logger = new LoggerConfiguration()
-    // .ReadFrom.AppSettings()
-    // .CreateLogger();
-    //
-    .MinimumLevel.Information()
-    .Enrich.FromLogContext()
-    .WriteTo.Seq("http://localhost:5341", LogEventLevel.Information, bufferBaseFilename:"web")
-    .WriteTo.Async(c =>
-        c.File("Logs/log.txt",
-            rollingInterval: RollingInterval.Day,
-            retainedFileCountLimit: 31,
-            rollOnFileSizeLimit: true,
-            fileSizeLimitBytes: 31457280,
-            buffered: true))
-    .WriteTo.Console()
+    .ReadFrom.Configuration(configuration)
     .CreateLogger();
 
 builder.Services.AddRazorPages();
