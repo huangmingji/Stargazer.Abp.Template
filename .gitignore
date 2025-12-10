@@ -40,3 +40,5 @@ files/
 nupkg/
 certs/
 volumes/
+*.clef
+*.bookmark
